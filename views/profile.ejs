@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="profile_style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+   <!-- NAVBAR PUT IN PARTIALS SOON-->
+   <div class="row2">
+      <ul>
+          <li><a href="userin">Home</a></li>
+          <li><a href="movies">Movies</a></li>
+          <li><a href="tvseries">TV Series</a></li>
+          <li><a href="about">About</a></li>
+          <li><a href="profile">Profile</a></li>
+          <li><a href="/">Log Out</a></li>
+         
+        </ul>
+    </div>
+
+<div class="container">
+   <div class="row">
+      <div class="col-md-12">
+         <div id="content" class="content content-full-width">
+            <!-- begin profile -->
+            <div class="profile">
+               <div class="profile-header">
+                  <!-- BEGIN profile-header-cover -->
+                  <div class="profile-header-cover"></div>
+                  <!-- END profile-header-cover -->
+                  <!-- BEGIN profile-header-content -->
+                  <div class="profile-header-content">
+                     <!-- BEGIN profile-header-img -->
+                     <div class="profile-header-img">
+                        <img src="https://i.pinimg.com/236x/aa/ec/b4/aaecb40269b4ab492dc6246e067a5d5f.jpg" alt="">
+                     </div>
+                     <!-- END profile-header-img -->
+                     <!-- BEGIN profile-header-info -->
+                     <div class="profile-header-info">
+                        <% userdata.forEach(function(user) { %>
+                        <h4 class="m-t-10 m-b-5"><%-user.username%></h4>
+                        <% }) %>
+                        <p class="m-b-10">⭐⭐⭐⭐⭐ Movie Reactor</p>
+                        <a href="userin" class="btn btn-sm btn-info mb-2">Home</a>
+                     </div>
+                     <!-- END profile-header-info -->
+                  </div>
+                  <!-- END profile-header-content -->
+                  <!-- BEGIN profile-header-tab -->
+                  <ul class="profile-header-tab nav nav-tabs">
+                     <li class="nav-item"><a href="#" target="__blank" class="nav-link_">EDIT PROFILE</a></li>
+                     <li class="nav-item"><a href="#" target="__blank" class="nav-link_">RECOMMENDATIONS</a></li>
+                  </ul>
+                  <!-- END profile-header-tab -->
+               </div>
+            </div>
+            <!-- end profile -->
+            <!-- begin profile-content -->
+             <hr />
+             <div class="center">
+                           <!-- WATCHLIST ADD DIV-->
+               <form method="post" action="/addWatchlist">
+                  <h1>Select a movie to add to your Recommendations: </h1></br>
+                  <select class="movieselect" name="movieSelected">
+                     <label>Movie Watchlist Adder</label>
+                     <% let MovieArrayList = []; %>
+                     <% let userWatchList = []; %>
+                     <%   var newMovieList = [];  %>
+                     
+                     <% userdata.forEach(function(user) { %>
+                        <%  userWatchList.push(user.movieWatchlist);  %>
+                     <% }) %>
+
+                     <% testmovie.forEach(function(movie) { %>
+                        <%  MovieArrayList.push(movie.title); %>
+                     <% }) %>
+
+                        
+                        
+
+
+
+                     
+                     <% console.log("the user watchlist is "+userWatchList); %>
+                     <% console.log("the list of movies in the database is "+MovieArrayList); %>
+
+
+                     <%   MovieArrayList.forEach(function(movie){ %>
+                        <%   if(!userWatchList.includes(movie)){ %>
+                        <%  newMovieList.push(movie); } %>
+                     <%   });  %>
+                     <%   console.log("THE NEW MOVIE LIST WITHOUTH IS "+newMovieList); %>
+
+
+                     <% newMovieList.forEach(function(movie) { %>
+                     <option value="<%= movie %>"><%= movie %></option>
+                     <% }); %>
+
+
+                  
+
+                   </select>
+                   <input type="submit" class="btn btn-danger" value="Add Movie" />
+               </form>
+             </div>
+             <div class="center">
+               <!-- WATCHLIST FROM DATABASE-->
+                   <h1>Your Recommendations: </h1></br>
+             </div>
+
+             <section class="movies container id=movies">
+
+               <!-- <LOOP THAT CYCLES THROUGH THE OBJECTS OBTAINED FROM DB> -->
+                  <% userdata.forEach(function(user) { %>
+
+                     <% var arrayLength = user.movieWatchlist.length %>
+
+                     <% for(let i=0; i < arrayLength; i++) { %>
+                    <!--  <p> MOVIE WAS FOUND!!</p> -->  
+                    <!--     <p><%=user.movieWatchlist[i]%> </p> -->  
+                        <% testmovie.forEach(function(movie){ %>
+                           <% if (user.movieWatchlist[i] === movie.title) { %>
+                              <div class="movie-box"> 
+                                 <a href="<%=movie.keyword%>">
+                                     <img src="<%=movie.img%>" alt="One piece poster" class="movie-box-img">
+                                     <div class="box-text">
+                                         <h2 class="movie-title"> <%-movie.title%></h2>
+                                     </div>
+                                 </a>
+                             </div>
+                           <% } %> 
+
+                        <% }) %>
+                        
+                        
+                     <% } %>
+                  <% }) %>
+  
+
+
+
+                  <!--
+
+
+                  <% testmovie.forEach(function(movie){ %>
+                   <% userdata.forEach(function(user) { %>
+                     <% if (user.movieWatchlist === movie.title) { %>
+                        <p> HELLO WORLD MOVIE WAS FOUND!!</p>
+                       <div class="movie-box"> 
+                           <a href="<%=movie.keyword%>">
+                               <img src="<%=movie.img%>" alt="One piece poster" class="movie-box-img">
+                               <div class="box-text">
+                                   <h2 class="movie-title"> <%-movie.title%></h2>
+                               </div>
+                           </a>
+                       </div>
+                       <% } %> 
+                       <% }) %>
+                       <% })%> 
+
+                  -->
+         
+      
+              
+           </div>
+       </section>
+            <!-- end profile-content -->
+         </div>
+      </div>
+   </div>
+</div>
+</body>
+</html>

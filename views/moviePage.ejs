@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% testmovie.forEach(function(result) { %>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> <%-result.title%> Review</title>
+	<link rel="stylesheet" href="pages_style.css">
+</head>
+<body>
+    
+    <div class="row2">
+        <ul>
+            <li><a href="userin">Home</a></li>
+            <li><a href="movies">Movies</a></li>
+            <li><a href="tvseries">TV Series</a></li>
+            <li><a href="profile">Profile</a></li>
+            <li><a href="/">Log Out</a></li>
+           
+       
+            
+          </ul>
+      </div>
+
+
+    
+<div class="movie-infos">
+	<div class="movie-title">
+       <!--  <img src="https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg" alt=""> -->
+         <img class =imgPoster src="<%=result.img%>" alt="">
+	</div>
+	<p>
+        <%=result.plot%>
+</p> 
+</div>
+  	 
+
+   <!-- <LOOP THAT PRINTS EACH OBJECT IN THE DATABASE> -->
+         <% testmovie.forEach(function(result) { %>
+            <div class="post">
+                <div class="author-picture">
+                    <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" height="100px"width="100px"alt="" srcset="">
+                    <h1><%-result.comments[0].user%></h1>
+                    <p>Rating: ⭐⭐⭐⭐⭐/5</p>
+                    <img name=""src="" alt="">
+                    <p><%-result.comments[0].likes%></p>
+                </div>
+                
+                <div class="review-content">
+                    <p><%-result.comments[0].content%></p>
+                </div>
+            </div>
+        <% });%> 
+
+
+        <% });%> 
+
+
+ 
+
+
+
+<!--Blank Post-->
+<!-- <div class="post">
+	<div class="author-picture">
+    	<img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg" height="100px"width="100px"alt="" srcset="">
+        <h1>Loading..</h1>
+        <p>Rating: loading../5</p>
+        <img src="" alt="">
+        <p>0 likes</p>
+    </div>
+    
+    <div class="review-content">
+        <p></p>
+    </div>
+</div> -->
+
+<!--POST A REVIEW-->
+
+<div class="prompt">
+    <h1>Write a Review!</H1>
+</div>
+
+<div class="reply">
+   
+    <form action="/add-comment" method="post">
+        <div class="user">
+            <img src="https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg" alt="">
+            <h1>Username</h1>
+        </div>
+        <textarea name="comment" id="" cols="100" rows="10" placeholder="Type Here"></textarea>
+        <button type="submit">Publish</button>
+    </form>
+    
+</div>
+
+</body>
+</html>
